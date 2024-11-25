@@ -66,9 +66,28 @@ import { storagePlugin } from './storage'
 import { API_PATH, API_WEBSITE_ASSETS_WRITE, API_WEBSITE_PATH } from '../../constants'
 import { ClientConfig } from '../config'
 import { titleCase } from '../utils'
+import webpagePlugin from 'grapesjs-preset-webpage'
+import countdownPlugin from 'grapesjs-component-countdown'
+import exportPlugin from 'grapesjs-plugin-export'
+import tabsPlugin from 'grapesjs-tabs'
+import touchPlugin from 'grapesjs-touch'
+import postcssPlugin from 'grapesjs-parser-postcss'
+import tooltipPlugin from 'grapesjs-tooltip'
+import tuiEditorPlugin from 'grapesjs-tui-image-editor'
+import typedPlugin from 'grapesjs-typed'
+
 
 const plugins = [
-  {name: './project-bar', value: projectBarPlugin}, // has to be before panels and dialogs
+   { value: webpagePlugin,  name: 'grapesjs-preset-webpage'},
+    { value: countdownPlugin,  name: 'grapesjs-component-countdown'},
+ { value: exportPlugin,  name: 'grapesjs-plugin-export'},
+ { value: tabsPlugin,  name: 'grapesjs-tabs'},
+ { value: touchPlugin,  name: 'grapesjs-touch'},
+ { value: postcssPlugin,  name: 'grapesjs-parser-postcss'},
+ { value: tooltipPlugin,  name: 'grapesjs-tooltip'},
+ { value: tuiEditorPlugin,  name: 'grapesjs-tui-image'},
+ { value: typedPlugin,  name: 'grapesjs-typed'},
+   {name: './project-bar', value: projectBarPlugin}, // has to be before panels and dialogs
   {name: 'grapesjs-style-bg', value: backgroundPlugin},
   {name: './settings', value: settingsDialog},
   {name: '@silexlabs/grapesjs-fonts', value: fontsDialogPlugin},
@@ -101,7 +120,10 @@ const plugins = [
   {name: './resize-panel', value: resizePanelPlugin},
   {name: '@silexlabs/grapesjs-notifications', value: notificationsPlugin},
   {name: '@silexlabs/grapesjs-keymaps-dialog', value: keymapsDialogPlugin},
-  {name: 'grapesjs-navbar', value:navbarPlugin}
+  {name: 'grapesjs-navbar', value:navbarPlugin},
+
+
+
 ]
 // Check that all plugins are loaded correctly
 plugins

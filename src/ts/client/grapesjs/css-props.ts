@@ -65,7 +65,7 @@ export default (editor: Editor, opts) => {
       ],
       info: 'The visibility CSS property shows or hides an element without changing the layout of a document. The property can also hide rows or columns in a <table>.',
     })
-    editor.StyleManager.removeProperty('general', 'float')
+    // editor.StyleManager.removeProperty('general', 'float')
     editor.StyleManager.removeProperty('general', 'position')
     editor.StyleManager.addProperty('general', {
       name: 'Position',

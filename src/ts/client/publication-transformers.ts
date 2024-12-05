@@ -16,7 +16,7 @@
  */
 
 import { Component, CssRule, StyleProps, Editor } from 'grapesjs'
-import { ClientSideFile, ClientSideFileType, Initiator, PublicationData } from '../types'
+import { ClientSideFile, ClientSideFileType, Initiator, Page, PublicationData } from '../types'
 import { onAll } from './utils'
 
 /**
@@ -45,7 +45,7 @@ export interface PublicationTransformer {
   // Temporarily override how styles render at publication by grapesjs
   renderCssRule?(rule: CssRule, initialRule: () => StyleProps): StyleProps | undefined
   // Transform files after they are rendered and before they are published
-  transformFile?(file: ClientSideFile): ClientSideFile
+  transformFile?(file: ClientSideFile, page:Page): ClientSideFile
   // Define files URLs
   transformPermalink?(link: string, type: ClientSideFileType, initiator: Initiator): string
   // Define where files are published
@@ -211,13 +211,14 @@ export function transformBgImage(editor: Editor, style: StyleProps): StyleProps 
  * Transform files
  * Exported for unit tests
  */
-export function transformFiles(editor: Editor, data: PublicationData) {
+export async function transformFiles(editor: Editor, data: PublicationData) {
   const config = editor.getModel().get('config')
-  data.files = config.publicationTransformers.reduce((files: ClientSideFile[], transformer: PublicationTransformer) => {
-    return files.map((file, idx) => {
+  data.files = config.publicationTransformers.reduce(async (_files: Promise<ClientSideFile[]>, transformer: PublicationTransformer) => {
+    const files = await _files;
+    return Promise.all(files.map(async (file, idx) => {
       const page = data.pages[idx] ?? null
-      return transformer.transformFile ? transformer.transformFile(file) as ClientSideFile ?? file : file
-    })
+      return transformer.transformFile ? transformer.transformFile(file, page) as ClientSideFile ?? file : file
+    }))
   }, data.files)
 }
 

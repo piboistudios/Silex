@@ -273,7 +273,7 @@ export class PublicationManager {
     }
     this.resetPublicationTransformers()
     // Let plugins transform the data
-    transformFiles(this.editor, data)
+    await transformFiles(this.editor, data)
     this.editor.trigger(ClientEvent.PUBLISH_DATA, { data, preventDefault, publicationManager: this })
     // Return the data
     return data

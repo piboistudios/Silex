@@ -1,5 +1,5 @@
 import { Component, CssRule, StyleProps, Editor } from 'grapesjs';
-import { ClientSideFile, ClientSideFileType, Initiator, PublicationData } from '../types';
+import { ClientSideFile, ClientSideFileType, Initiator, Page, PublicationData } from '../types';
 /**
  * Interface for publication transformers
  * They are added to the config object with config.addPublicationTransformer()
@@ -7,7 +7,7 @@ import { ClientSideFile, ClientSideFileType, Initiator, PublicationData } from '
 export interface PublicationTransformer {
     renderComponent?(component: Component, toHtml: () => string): string | undefined;
     renderCssRule?(rule: CssRule, initialRule: () => StyleProps): StyleProps | undefined;
-    transformFile?(file: ClientSideFile): ClientSideFile;
+    transformFile?(file: ClientSideFile, page: Page): ClientSideFile;
     transformPermalink?(link: string, type: ClientSideFileType, initiator: Initiator): string;
     transformPath?(path: string, type: ClientSideFileType): string;
 }
@@ -31,7 +31,7 @@ export declare function transformBgImage(editor: Editor, style: StyleProps): Sty
  * Transform files
  * Exported for unit tests
  */
-export declare function transformFiles(editor: Editor, data: PublicationData): void;
+export declare function transformFiles(editor: Editor, data: PublicationData): Promise<void>;
 /**
  * Transform files paths
  * Exported for unit tests

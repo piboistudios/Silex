@@ -213,7 +213,7 @@ export function transformBgImage(editor: Editor, style: StyleProps): StyleProps 
  */
 export async function transformFiles(editor: Editor, data: PublicationData) {
   const config = editor.getModel().get('config')
-  data.files = config.publicationTransformers.reduce(async (_files: Promise<ClientSideFile[]>, transformer: PublicationTransformer) => {
+  data.files = await config.publicationTransformers.reduce(async (_files: Promise<ClientSideFile[]>, transformer: PublicationTransformer) => {
     const files = await _files;
     return Promise.all(files.map(async (file, idx) => {
       const page = data.pages[idx] ?? null

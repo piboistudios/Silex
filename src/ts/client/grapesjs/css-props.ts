@@ -84,6 +84,8 @@ export default (editor: Editor, opts) => {
         { value: 'absolute', name: 'absolute' },
         /* @ts-ignore */
         { value: 'fixed', name: 'fixed' },
+        /* @ts-ignore */
+        { value: 'sticky', name: 'sticky' },
       ],
       info: '',
     })

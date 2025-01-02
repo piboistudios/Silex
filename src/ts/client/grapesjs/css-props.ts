@@ -880,7 +880,7 @@ export default (editor: Editor, opts) => {
       }
     }
     editor.on('selector:state component:selected component:styleUpdate style:sector:update', (state, opts) => setTimeout(() => refreshContentProp()))
-    editor.StyleManager.getSector('general').on('change', () => refreshContentProp())
+    editor?.StyleManager?.getSector?.('general')?.on?.('change', () => refreshContentProp())
     editor.SelectorManager.states.add({name: 'before', label: 'Before'})
     editor.SelectorManager.states.add({name: 'after', label: 'After'})
     editor.SelectorManager.states.add({name: 'active', label: 'Active'})
